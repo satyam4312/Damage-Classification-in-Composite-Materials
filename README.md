@@ -22,11 +22,9 @@ The signal branch converts each amplitude record into a log-power spectrogram an
 
 The updated training script uses a stratified 70/15/15 train/validation/locked-test split, training-only augmentation, per-record amplitude normalization, partial backbone freezing, dropout, label smoothing, weight decay, gradient clipping, and early stopping. The best checkpoint is selected using validation macro-F1. The locked test set is evaluated after model selection.
 
-## Dataset and limitations
+## Dataset 
 
 The supplied data contains 120 synthetic images (60 healthy and 60 damaged) and 300 synthetic signal records (75 per signal class). The image and signal datasets are not documented as paired and must be evaluated independently.
-
-The signal dataset does not document specimen/session IDs, so its current split is at the sample level. Related samples or shared synthetic-generation patterns could still cross splits. The reported held-out score is exploratory and **does not establish generalization to real composite structures**. Validate on independently collected specimens before making operational or engineering claims.
 
 ## Requirements
 
@@ -35,8 +33,6 @@ Use Python 3.10 or newer in a virtual environment. Install the project dependenc
 ```bash
 pip install -r requirements-webapp.txt
 ```
-
-If you need a CUDA-enabled PyTorch installation, choose the command appropriate for your system from the [official PyTorch installation guide](https://pytorch.org/get-started/locally/).
 
 ## Run the web app locally
 
@@ -82,14 +78,9 @@ python starter_train_signal.py
 The signal training script reports validation metrics and evaluates the locked test set after training. The image script uses its own image-classification pipeline and data split. Review the current scripts for their exact split and metric details before comparing the models; their scores are not directly comparable unless the evaluation protocols are aligned.
 
 Recommended next steps:
-
 1. Audit exact and near-duplicate samples and potential synthetic-generation shortcuts.
 2. Add specimen/session-level splitting when source identifiers are available.
 3. Compare the spectrogram ResNet with a Random Forest on engineered features and a 1D-CNN on raw waveforms using identical partitions.
 4. Investigate matrix-crack versus delamination errors.
 5. Test the frozen model on real signals from specimens absent from training.
 6. Confirm the true AE sampling rate and preprocessing requirements from acquisition metadata.
-
-## Disclaimer
-
-This application is a research prototype, not a certified inspection system. Predictions are model outputs and are not a substitute for qualified engineering assessment or validated non-destructive testing procedures.
