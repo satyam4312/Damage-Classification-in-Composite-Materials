@@ -84,3 +84,6 @@ Recommended next steps:
 4. Investigate matrix-crack versus delamination errors.
 5. Test the frozen model on real signals from specimens absent from training.
 6. Confirm the true AE sampling rate and preprocessing requirements from acquisition metadata.
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
